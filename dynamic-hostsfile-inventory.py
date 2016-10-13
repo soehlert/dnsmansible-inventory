@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument("-l", "--local-conn", help="Use local connection; ie file is located on this host", default=False, action="store_true", dest='local_conn')
 parser.add_argument("--password-auth", help="Use password authentication instead of keys", default=False, action="store_true", dest='password_auth')
 parser.add_argument("--version", help="Print version", action="version", version="%(prog)s 0.1.0-alpha")
-parser.add_argument("-c", "--config", help="Specify config file location", default="/tmp/test.conf", dest='conf_file')
+parser.add_argument("-c", "--config", help="Specify config file location", default="example.conf", dest='conf_file')
 
 args, remaining_argv = parser.parse_known_args()
 
@@ -32,7 +32,7 @@ if conf_file:
     inventory = conf.get('files', 'inventory')
     if args.local_conn:
         local_conn = args.local_conn
-        local_connection()
+        server, port, user, ssh_key = local_connection()
     else:
         server = conf.get('ssh', 'server')
         port = conf.get('ssh', 'port')
@@ -42,16 +42,12 @@ if conf_file:
 else:
     hosts_file = "/tmp/dns"
     inventory = "/tmp/inventory"
-    local_connection()
+    server, port, user, ssh_key = local_connection()
     if args.local_conn:
         local_conn = args.local_conn
-    else:
-        local_conn = False
 
 if args.password_auth:
     password_auth = args.password_auth
-else:
-    password_auth = False
 
 # inherit options from previous parser, print script description with -h/--help
 conf_parser = argparse.ArgumentParser(parents=[parser], description=__doc__)
@@ -76,7 +72,6 @@ if cli_args.port:
 if cli_args.user:
     user = cli_args.user
 
-server, port, user, ssh_key = local_connection()
 
 print(server)
 print(port)
