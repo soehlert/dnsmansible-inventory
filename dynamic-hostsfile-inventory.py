@@ -5,6 +5,13 @@ import argparse
 
 from configparser import ConfigParser
 
+def local_connection():
+    server = ""
+    port = ""
+    user = ""
+    ssh_key = ""
+    return server, port, user, ssh_key
+
 # Turn off help, so we print all the options and not just the CLI flags
 parser = argparse.ArgumentParser(add_help=False)
 
@@ -25,10 +32,7 @@ if conf_file:
     inventory = conf.get('files', 'inventory')
     if args.local_conn:
         local_conn = args.local_conn
-        server = ""
-        port = ""
-        user = ""
-        ssh_key = ""
+        local_connection()
     else:
         server = conf.get('ssh', 'server')
         port = conf.get('ssh', 'port')
@@ -38,10 +42,7 @@ if conf_file:
 else:
     hosts_file = "/tmp/dns"
     inventory = "/tmp/inventory"
-    server = ""
-    port = ""
-    user = ""
-    ssh_key = ""
+    local_connection()
     if args.local_conn:
         local_conn = args.local_conn
     else:
@@ -60,6 +61,7 @@ conf_parser.add_argument("-i", "--inventory", help="Path of inventory file", des
 conf_parser.add_argument("-s", "--server", help="Server to connect to (ip address)", dest='server')
 conf_parser.add_argument("-p", "--port", help="SSH port to connect over", dest='port')
 conf_parser.add_argument("-u", "--user", help="User to connect as", dest='user')
+conf_parser.add_argument("-k", "--key", help="SSH key to use", dest='ssh_key')
 
 cli_args = conf_parser.parse_args(remaining_argv)
 
@@ -73,3 +75,10 @@ if cli_args.port:
     port = cli_args.port
 if cli_args.user:
     user = cli_args.user
+
+server, port, user, ssh_key = local_connection()
+
+print(server)
+print(port)
+print(user)
+print(ssh_key)
