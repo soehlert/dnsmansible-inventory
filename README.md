@@ -1,4 +1,4 @@
-# dnsmansible-inventory
+# dynamic hosts file inventory
 Dynamic inventory for ansible from /etc/hosts (or /etc/hosts formatted) file
 
 # Config
