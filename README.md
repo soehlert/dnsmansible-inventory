@@ -1,4 +1,4 @@
-# dynamic hosts file inventory
+# Dynamic Hosts File Inventory
 Dynamic inventory for ansible from /etc/hosts (or /etc/hosts formatted) file
 
 # Config
