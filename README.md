@@ -3,7 +3,7 @@ Dynamic inventory for ansible from /etc/hosts (or /etc/hosts formatted) file
 
 # Config
 
-Copy example.conf to somewhere (default location the script will look at is ~/.config/dnsmansible-inventory/dnsmansible-inventory.conf)
+Copy example.conf to somewhere (default location the script will look at is ~/.config/hostsfile-inventory/hostsfile-inventory.conf)
 Edit the file to suit your needs
 
 ```
