@@ -14,7 +14,7 @@ hosts_file = /etc/hosts
 inventory = /Users/soehlert/projects/ansible/inventory
 
 [ssh]
-# The dnsmasq server you want to grab the info from
+# The server you want to grab the info from
 server = 10.0.0.2
 # The port to ssh over (default is 22)
 port = 22
