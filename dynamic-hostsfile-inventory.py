@@ -6,6 +6,7 @@ import argparse
 from configparser import ConfigParser
 
 def local_connection():
+    """ Set ssh values all to nothing since we don't need them """
     server = ""
     port = ""
     user = ""
@@ -48,6 +49,8 @@ else:
 
 if args.password_auth:
     password_auth = args.password_auth
+else:
+    password_auth = False
 
 # inherit options from previous parser, print script description with -h/--help
 conf_parser = argparse.ArgumentParser(parents=[parser], description=__doc__)
@@ -61,19 +64,18 @@ conf_parser.add_argument("-k", "--key", help="SSH key to use", dest='ssh_key')
 
 cli_args = conf_parser.parse_args(remaining_argv)
 
-if cli_args.hosts_file:
-    hosts_file = cli_args.hosts_file
-if cli_args.inventory:
-    inventory = cli_args.inventory
-if cli_args.server:
-    server = cli_args.server
-if cli_args.port:
-    port = cli_args.port
-if cli_args.user:
-    user = cli_args.user
+# This seems iffy
+for arg, value in vars(cli_args).items():
+    if value:
+        exec(arg + '=value')
 
-
-print(server)
-print(port)
-print(user)
-print(ssh_key)
+if __name__ == '__main__':
+    print("local: {}".format(local_conn))
+    print("password: {}".format(password_auth))
+    print("config: {}".format(conf_file))
+    print("hosts: {}".format(hosts_file))
+    print("inventory: {}".format(inventory))
+    print("server: {}".format(server))
+    print("port: {}".format(port))
+    print("user: {}".format(user))
+    print("ssh key: {}".format(ssh_key))
