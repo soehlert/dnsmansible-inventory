@@ -84,7 +84,8 @@ conf_parser = argparse.ArgumentParser(parents=[parser], description=__doc__)
 
 conf_parser.add_argument("-f", "--file", help="Path of hosts file", dest='hosts_file')
 conf_parser.add_argument("-i", "--inventory", help="Path of inventory file", dest='inventory')
-conf_parser.add_argument("-s", "--server", help="Server to connect to (ip address)", dest='server') conf_parser.add_argument("-p", "--port", help="SSH port to connect over", type=int, dest='port')
+conf_parser.add_argument("-s", "--server", help="Server to connect to (ip address)", dest='server')
+conf_parser.add_argument("-p", "--port", help="SSH port to connect over", type=int, dest='port')
 conf_parser.add_argument("-u", "--user", help="User to connect as", dest='user')
 conf_parser.add_argument("-k", "--key", help="SSH key to use", dest='ssh_key')
 
